@@ -31,7 +31,7 @@ function Header() {
       <div className="header-content">
         <div className="logo">
           <h1>🔄 DEX</h1>
-          <span>去中心化交易所</span>
+          <span>Decentralized Exchange</span>
         </div>
         <div className="wallet-info">
           {isConnected ? (
@@ -40,15 +40,15 @@ function Header() {
                 <span className="status-dot"></span>
                 {formatAddress(address)}
               </div>
-              <button className="switch-btn" onClick={handleSwitchAccount} title="切换账户">
-                切换
+              <button className="switch-btn" onClick={handleSwitchAccount} title="Switch Account">
+                Switch
               </button>
               <button className="disconnect-btn" onClick={disconnectWallet}>
-                断开
+                Disconnect
               </button>
             </div>
           ) : (
-            <div className="not-connected">未连接钱包</div>
+            <div className="not-connected">Not Connected</div>
           )}
         </div>
       </div>

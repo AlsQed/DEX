@@ -49,7 +49,7 @@ npm run build
 cd D:\Project\DEX
 
 # 部署合约（会自动生成 .env 文件）
-npm run deploy
+npm run deploy:localhost
 ```
 
 **等待输出：**
