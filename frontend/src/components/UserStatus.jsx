@@ -27,7 +27,23 @@ function UserStatus() {
       const data = await getUserStatus(address)
       setStatus(data)
     } catch (err) {
-      setError(err.message || '加载失败')
+      let errorMessage = '加载失败'
+      
+      if (err.response) {
+        // 服务器返回了错误响应
+        errorMessage = err.response.data?.error || err.response.data?.message || `服务器错误: ${err.response.status}`
+        if (err.response.data?.hint) {
+          errorMessage += `\n提示: ${err.response.data.hint}`
+        }
+      } else if (err.request) {
+        // 请求已发送但没有收到响应
+        errorMessage = '无法连接到后端服务器。请确保后端 API 服务器正在运行 (npm run server)'
+      } else {
+        // 其他错误
+        errorMessage = err.message || '加载失败'
+      }
+      
+      setError(errorMessage)
       console.error('Error loading status:', err)
     } finally {
       setLoading(false)
