@@ -17,7 +17,9 @@ function Trade() {
 
   useEffect(() => {
     if (networkConfig?.contracts) {
-      setToken(mode === 'buy' ? networkConfig.contracts.Token1 : networkConfig.contracts.Token0)
+      // Buy: 用Token0购买Token1 (buyToken的tokenOut参数是Token1)
+      // Sell: 用Token1出售得到Token0 (sellToken的tokenIn参数是Token1)
+      setToken(networkConfig.contracts.Token1)
     }
   }, [networkConfig, mode])
 
@@ -96,6 +98,8 @@ function Trade() {
         return
       }
 
+      // Buy: 用Token0购买Token1 (tokenOut = Token1)
+      // Sell: 用Token1出售得到Token0 (tokenIn = Token1)
       const result = mode === 'buy'
         ? await buyToken(token, amount, null, address)
         : await sellToken(token, amount, null, address)
@@ -129,6 +133,23 @@ function Trade() {
     }
   }
 
+  const getTokenSymbol = (tokenAddress) => {
+    if (!tokenAddress || !networkConfig?.contracts) return 'Token'
+    const { Token0, Token1 } = networkConfig.contracts
+    if (tokenAddress.toLowerCase() === (Token0 || '').toLowerCase()) return 'TKA'
+    if (tokenAddress.toLowerCase() === (Token1 || '').toLowerCase()) return 'TKB'
+    return 'Token'
+  }
+
+  // Buy模式：用Token0购买Token1
+  // Sell模式：用Token1出售得到Token0
+  const tokenIn = mode === 'buy' 
+    ? networkConfig?.contracts?.Token0 
+    : networkConfig?.contracts?.Token1
+  const tokenOut = mode === 'buy'
+    ? networkConfig?.contracts?.Token1
+    : networkConfig?.contracts?.Token0
+
   return (
     <div className="trade-container">
       <h2>Buy & Sell</h2>
@@ -160,11 +181,7 @@ function Trade() {
               disabled={loading}
             />
             <div className="token-display">
-              <span>
-                {mode === 'buy'
-                  ? (networkConfig?.contracts?.Token0 ? `${networkConfig.contracts.Token0.slice(0, 6)}...${networkConfig.contracts.Token0.slice(-4)}` : 'Token0')
-                  : (token ? `${token.slice(0, 6)}...${token.slice(-4)}` : 'Token')}
-              </span>
+              <span>{tokenIn ? getTokenSymbol(tokenIn) : 'Token'}</span>
             </div>
           </div>
         </div>
@@ -172,7 +189,7 @@ function Trade() {
         <div className="arrow">↓</div>
 
         <div className="trade-input-group">
-          <label>{mode === 'buy' ? 'Receive Amount (Estimated)' : 'Receive Amount (Estimated)'}</label>
+          <label>Receive Amount (Estimated)</label>
           <div className="input-wrapper">
             <input
               type="text"
@@ -182,11 +199,7 @@ function Trade() {
               className="readonly"
             />
             <div className="token-display">
-              <span>
-                {mode === 'buy'
-                  ? (token ? `${token.slice(0, 6)}...${token.slice(-4)}` : 'Token1')
-                  : (networkConfig?.contracts?.Token0 ? `${networkConfig.contracts.Token0.slice(0, 6)}...${networkConfig.contracts.Token0.slice(-4)}` : 'Token0')}
-              </span>
+              <span>{tokenOut ? getTokenSymbol(tokenOut) : 'Token'}</span>
             </div>
           </div>
         </div>
