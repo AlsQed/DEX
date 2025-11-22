@@ -3,8 +3,7 @@ import { WalletProvider, useWallet } from './contexts/WalletContext'
 import Header from './components/Header'
 import WalletConnect from './components/WalletConnect'
 import Swap from './components/Swap'
-import Trade from './components/Trade'
-import UserStatus from './components/UserStatus'
+import Pool from './components/Pool'
 import './App.css'
 
 function AppContent() {
@@ -29,23 +28,16 @@ function AppContent() {
                 Swap
               </button>
               <button
-                className={`tab ${activeTab === 'trade' ? 'active' : ''}`}
-                onClick={() => setActiveTab('trade')}
+                className={`tab ${activeTab === 'pool' ? 'active' : ''}`}
+                onClick={() => setActiveTab('pool')}
               >
-                Trade
-              </button>
-              <button
-                className={`tab ${activeTab === 'status' ? 'active' : ''}`}
-                onClick={() => setActiveTab('status')}
-              >
-                My Assets
+                Pool
               </button>
             </div>
 
             <div className="tab-content">
               {activeTab === 'swap' && <Swap />}
-              {activeTab === 'trade' && <Trade />}
-              {activeTab === 'status' && <UserStatus />}
+              {activeTab === 'pool' && <Pool />}
             </div>
           </div>
         )}

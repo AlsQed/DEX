@@ -1,14 +1,10 @@
-// 代币授权相关路由
+
 const express = require('express');
 const router = express.Router();
 const { getContract, formatTokenAmount, parseTokenAmount } = require('../utils/contracts');
 const config = require('../config');
 const { ethers } = require('ethers');
 
-/**
- * POST /api/approval/check
- * 检查代币授权状态
- */
 router.post('/check', async (req, res) => {
   try {
     const { token, userAddress } = req.body;
@@ -50,10 +46,6 @@ router.post('/check', async (req, res) => {
   }
 });
 
-/**
- * POST /api/approval/build
- * 构建授权交易数据（需要前端签名）
- */
 router.post('/build', async (req, res) => {
   try {
     const { token, amount, userAddress } = req.body;
@@ -78,7 +70,6 @@ router.post('/build', async (req, res) => {
       ? ethers.MaxUint256 
       : parseTokenAmount(amount);
     
-    // 构建授权交易数据
     const approveTx = await tokenContract.approve.populateTransaction(
       dexAddress,
       amountWei

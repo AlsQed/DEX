@@ -1,13 +1,10 @@
-// 代币交换相关路由
+
 const express = require('express');
 const router = express.Router();
 const { getContract, getSignedContract, formatTokenAmount, parseTokenAmount } = require('../utils/contracts');
 const config = require('../config');
 
-/**
- * POST /api/swap/quote
- * 获取交换报价（不执行交易）
- */
+
 router.post('/quote', async (req, res) => {
   try {
     const { tokenIn, amountIn, userAddress } = req.body;
@@ -31,7 +28,6 @@ router.post('/quote', async (req, res) => {
     const amountInWei = parseTokenAmount(amountIn);
     const amountOut = await dex.getAmountOut(amountInWei, tokenIn);
     
-    // 获取价格信息
     const [reserve0, reserve1] = await Promise.all([
       dex.reserve0(),
       dex.reserve1()
@@ -67,11 +63,6 @@ router.post('/quote', async (req, res) => {
   }
 });
 
-/**
- * POST /api/swap/execute
- * 执行代币交换（需要前端签名）
- * 注意：实际交易需要用户在前端签名，这里只返回交易数据
- */
 router.post('/execute', async (req, res) => {
   try {
     const { tokenIn, amountIn, minAmountOut, to, userAddress } = req.body;
@@ -95,7 +86,6 @@ router.post('/execute', async (req, res) => {
     const amountInWei = parseTokenAmount(amountIn);
     const minAmountOutWei = minAmountOut ? parseTokenAmount(minAmountOut) : 0n;
     
-    // 检查用户是否有足够的代币余额
     const tokenContract = getContract('ERC20', tokenIn);
     const balance = await tokenContract.balanceOf(userAddress);
     const internalBalance = await dex.balances(userAddress, tokenIn);
@@ -112,7 +102,6 @@ router.post('/execute', async (req, res) => {
       });
     }
     
-    // 检查授权（如果需要从钱包转账）
     if (balance >= amountInWei) {
       const allowance = await tokenContract.allowance(userAddress, dexAddress);
       if (allowance < amountInWei) {
@@ -129,7 +118,6 @@ router.post('/execute', async (req, res) => {
       }
     }
     
-    // 构建交易数据
     const swapTx = await dex.swapExactTokensForTokens.populateTransaction(
       tokenIn,
       amountInWei,
@@ -144,7 +132,7 @@ router.post('/execute', async (req, res) => {
         to: dexAddress,
         data: swapTx.data,
         value: '0',
-        gasEstimate: '200000', // 估算gas
+        gasEstimate: '200000',
         message: 'Transaction ready to sign'
       }
     });
@@ -156,10 +144,6 @@ router.post('/execute', async (req, res) => {
   }
 });
 
-/**
- * GET /api/swap/price/:baseToken
- * 获取代币价格
- */
 router.get('/price/:baseToken', async (req, res) => {
   try {
     const { baseToken } = req.params;

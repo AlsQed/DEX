@@ -1,14 +1,10 @@
-// 钱包相关路由
+
 const express = require('express');
 const router = express.Router();
 const { getProvider } = require('../utils/contracts');
 const config = require('../config');
 const { ethers } = require('ethers');
-
-/**
- * GET /api/wallet/connect
- * 验证钱包连接（前端直接连接，这里提供网络信息）
- */
+ 
 router.get('/connect', async (req, res) => {
   try {
     const network = config.network.localhost;
@@ -28,10 +24,6 @@ router.get('/connect', async (req, res) => {
   }
 });
 
-/**
- * GET /api/wallet/balance/:address
- * 查询钱包ETH余额
- */
 router.get('/balance/:address', async (req, res) => {
   try {
     const { address } = req.params;

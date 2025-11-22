@@ -1,156 +1,68 @@
 # Minimal AMM DEX (Single Pair)
 
-基于区块链的去中心化交易所（DEX）完整实现，包含智能合约、后端API和前端界面。
+A blockchain-based decentralized exchange (DEX) implementation
 
-## 核心功能
+## Core Features
 
-### 智能合约功能
-- ✅ 用户存款/取款（内部余额管理）
-- ✅ 基础代币交换（恒定乘积模型，0.3%手续费）
-- ✅ 流动性提供/移除（LP代币）
-- ✅ 价格计算工具
+### Smart Contract Features
+- Token swapping (Constant product model with 0.3% fee)
+- Liquidity provision/removal (LP tokens)
+- Price calculation utilities
 
-### API接口功能
-- ✅ 钱包连接支持
-- ✅ 代币交换操作
-- ✅ 代币购买与出售操作
-- ✅ 用户状态查询（持有代币可视化）
+### API Features
+- Wallet connection support
+- Token swap operations
+- Liquidity management (add/remove)
 
-### 前端界面功能
-- ✅ 钱包连接（MetaMask集成）
-- ✅ 代币交换界面
-- ✅ 代币买卖界面
-- ✅ 用户资产可视化
-- ✅ 实时价格更新
-- ✅ 响应式设计
+### Frontend Features
+- Wallet connection (MetaMask integration)
+- Token swap interface (Swap)
+- Liquidity pool management interface (Pool)
+- Real-time price updates
+- Responsive design
 
-## 技术栈
+## Tech Stack
 
-### 智能合约
+### Smart Contracts
 - Solidity 0.8.24
 - Hardhat + Ethers v6
 - OpenZeppelin contracts
 
-### API服务
+### API Server
 - Node.js + Express
 - Ethers.js v6
-- CORS支持
+- CORS support
 
-### 前端应用
+### Frontend Application
 - React 18 + Vite
 - Ethers.js v6
 - Axios
 
-## 快速开始
+## Project Structure
 
-### 1. 安装依赖
-
-```bash
-npm install
-```
-
-### 2. 编译智能合约
-
-```bash
-npm run build
-```
-
-### 3. 部署合约（自动生成.env文件）
-
-```bash
-npm run deploy:localhost
-```
-
-部署完成后会自动生成 `.env` 文件，包含所有合约地址。
-
-### 4. 启动后端API服务器
-
-```bash
-npm run server
-```
-
-API服务器将在 `http://localhost:3001` 启动。
-
-### 5. 启动前端应用
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-前端应用将在 `http://localhost:3000` 启动。
-
-## 完整启动流程
-
-1. **终端1：启动区块链节点（可选）**
-   ```bash
-   npx hardhat node
-   ```
-
-2. **终端2：启动后端API服务器**
-   ```bash
-   npm run server
-   ```
-
-3. **终端3：启动前端应用**
-   ```bash
-   cd frontend
-   npm run dev
-   ```
-
-## 项目结构
-
-```
 DEX/
-├── contracts/              # 智能合约
-│   ├── DEX.sol            # 主DEX合约（AMM实现）
-│   ├── LPToken.sol        # LP代币合约
-│   └── TestToken.sol      # 测试代币
-├── scripts/               # 部署脚本
-│   ├── deploy.js          # 部署脚本（自动生成.env）
-│   └── demo.js            # 演示脚本
-├── server/                # API服务器
-│   ├── index.js           # 服务器入口
-│   ├── config.js          # 配置文件
-│   ├── routes/            # API路由
-│   └── utils/             # 工具函数
-├── frontend/              # 前端应用
+├── contracts/              # Smart contracts
+│   ├── DEX.sol            # Main DEX contract (AMM implementation)
+│   ├── LPToken.sol        # LP token contract
+│   └── TestToken.sol      # Test token contract
+├── scripts/               # Deployment scripts
+│   ├── deploy-localhost.js # Deployment script (auto-generates .env)
+│   └── test.js            # Test script
+├── server/                # API server
+│   ├── index.js           # Server entry point
+│   ├── config.js          # Configuration file
+│   ├── routes/            # API routes
+│   └── utils/             # Utility functions
+├── frontend/              # Frontend application
 │   ├── src/
-│   │   ├── components/    # React组件
+│   │   ├── components/    # React components
 │   │   ├── contexts/      # React Context
-│   │   └── services/      # API服务
+│   │   └── services/      # API services
 │   └── vite.config.js
 └── README.md
-```
 
-## 使用说明
 
-1. **连接钱包**：在前端点击"连接 MetaMask"，确保网络设置为本地网络（Chain ID: 31337）
+## License
 
-2. **交换代币**：切换到"交换"标签，输入数量，查看报价，执行交换
-
-3. **买卖代币**：切换到"买卖"标签，选择购买或出售模式
-
-4. **查看资产**：切换到"我的资产"标签，查看所有余额和池子信息
-
-## 开发命令
-
-```bash
-# 编译合约
-npm run build
-
-# 部署合约
-npm run deploy
-
-# 运行演示
-npm run demo
-
-# 启动API服务器
-npm run server
-
-# 开发模式（自动重启）
-npm run server:dev
-```
-
+MIT
 

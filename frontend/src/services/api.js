@@ -68,36 +68,6 @@ export async function getPrice(baseToken) {
   return response.data.data
 }
 
-export async function buyToken(tokenOut, amountIn, minAmountOut, userAddress) {
-  const response = await api.post('/api/trade/buy', {
-    tokenOut,
-    amountIn,
-    minAmountOut,
-    userAddress,
-  })
-  return response.data
-}
-
-export async function sellToken(tokenIn, amountIn, minAmountOut, userAddress) {
-  const response = await api.post('/api/trade/sell', {
-    tokenIn,
-    amountIn,
-    minAmountOut,
-    userAddress,
-  })
-  return response.data
-}
-
-export async function getUserStatus(address) {
-  const response = await api.get(`/api/user/status/${address}`)
-  return response.data.data
-}
-
-export async function getUserTokens(address) {
-  const response = await api.get(`/api/user/tokens/${address}`)
-  return response.data.data
-}
-
 export async function checkApproval(token, userAddress) {
   const response = await api.post('/api/approval/check', {
     token,
@@ -110,6 +80,29 @@ export async function buildApproval(token, amount, userAddress) {
   const response = await api.post('/api/approval/build', {
     token,
     amount,
+    userAddress,
+  })
+  return response.data.data
+}
+
+// Liquidity related API
+export async function getPoolInfo(address) {
+  const response = await api.get(`/api/liquidity/pool/${address}`)
+  return response.data.data
+}
+
+export async function addLiquidity(amount0, amount1, userAddress) {
+  const response = await api.post('/api/liquidity/add', {
+    amount0,
+    amount1,
+    userAddress,
+  })
+  return response.data.data
+}
+
+export async function removeLiquidity(lpAmount, userAddress) {
+  const response = await api.post('/api/liquidity/remove', {
+    lpAmount,
     userAddress,
   })
   return response.data.data

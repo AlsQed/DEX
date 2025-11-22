@@ -6,10 +6,12 @@
   "scripts": {
     "build": "hardhat compile",
     "test": "hardhat test",
-    "deploy": "hardhat run scripts/deploy.js --network hardhat",
-    "deploy:localhost": "hardhat run scripts/deploy-localhost.js --network localhost",
-    "demo": "hardhat run scripts/demo.js --network hardhat",
-    "check": "hardhat run scripts/check-deployment.js --network hardhat",
+    "test:flow": "hardhat run scripts/test.js --network hardhat",
+    "test:flow:localhost": "hardhat run scripts/test.js --network localhost",
+    "deploy": "hardhat run scripts/deploy-localhost.js --network localhost",
+    "deploy:sepolia": "hardhat run scripts/deploy-network.js --network sepolia",
+    "add-tokens": "hardhat run scripts/add-tokens.js --network localhost",
+    "check-balance": "hardhat run scripts/check-balance.js --network localhost",
     "server": "node server/index.js",
     "server:dev": "nodemon server/index.js"
   },
