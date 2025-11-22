@@ -47,7 +47,7 @@ DEX/
 │   ├── LPToken.sol        # LP token contract
 │   └── TestToken.sol      # Test token contract
 ├── scripts/               # Deployment scripts
-│   ├── deploy-localhost.js # Deployment script (auto-generates .env)
+│   ├── deploy-localhost.js # Deployment script
 │   └── test.js            # Test script
 ├── server/                # API server
 │   ├── index.js           # Server entry point
