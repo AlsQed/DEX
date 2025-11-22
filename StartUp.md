@@ -1,3 +1,5 @@
+需要先安装Node.js
+
 ### 安装依赖
 
 npm install
@@ -28,6 +30,7 @@ npm run server
 
 API服务器将在 `http://localhost:3001` 启动。
 
+# 终端3：启动前端
 ### 启动前端应用
 
 cd frontend
