@@ -1,4 +1,4 @@
-# Minimal AMM DEX (Single Pair)
+# DEX
 
 A blockchain-based decentralized exchange (DEX) implementation
 
