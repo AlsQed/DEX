@@ -40,6 +40,7 @@ A blockchain-based decentralized exchange (DEX) implementation
 
 ## Project Structure
 
+```
 DEX/
 ├── contracts/              # Smart contracts
 │   ├── DEX.sol            # Main DEX contract (AMM implementation)
@@ -60,7 +61,7 @@ DEX/
 │   │   └── services/      # API services
 │   └── vite.config.js
 └── README.md
-
+```
 
 ## License
 
